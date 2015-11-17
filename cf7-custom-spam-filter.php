@@ -21,11 +21,11 @@ function strposa($haystack, $needle, $offset=0) {
 function custom_textarea_spam_validation_filter( $result, $tag ) {
 	$tag = new WPCF7_Shortcode( $tag );
 	if ( 'your-message-t' == $tag->name ) {
-		$your_email = if ( isset($_POST['your-message-t'] ) ) {
-			$your_email = sanitize_text_field( $_POST['your-message-t'] );
+		if ( isset($_POST['your-message-t'] ) ) {
+			$your_message = sanitize_text_field( $_POST['your-message-t'] );
 		}
 
-	if (strposa($your_email, $spam_list)) {
+	if (strposa($your_message, $spam_list)) {
 		$result->invalidate( $tag, "Please check the content of your message" );
 	}
 }
